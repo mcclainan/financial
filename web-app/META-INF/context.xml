@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Context>
+
+<Context path="/macsuite" debug="0" reloadable="false" useHttpOnly="true" crossContext="false" cookies="true">
+		
+	<ResourceLink name="jdbc/macsuite" global="jdbc/macsuite" type="javax.sql.DataSource" />
+	
+</Context>
