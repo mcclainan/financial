@@ -56,8 +56,8 @@ class AdminMainCategoryController {
             render(view: 'edit',model:[command:command])
             return
         }
-        MainCategory mainCategory = MainCategory.get(command.id)
-        command.bind(mainCategory).save(failOnError: true)
+        MainCategory mainCategory = command.bind(MainCategory.get(command.id))
+        mainCategory.save(flush: true)
         redirect(action: 'show', id: mainCategory.id)
     }
 

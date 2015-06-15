@@ -10,9 +10,9 @@ class Account {
     Boolean liquid = true
     Boolean active = true
 
-    static belongsTo = [bank:Bank,type:AccountType]
+    static belongsTo = [type:AccountType]
 
-    static hasOne = [accountingBaseItem:AccountingBaseItem]
+    static hasOne = [bank:ImportFormat,accountingBaseItem:AccountingBaseItem]
 
     static hasMany = [transactions:Transaction, bankRecords:BankRecord]
 

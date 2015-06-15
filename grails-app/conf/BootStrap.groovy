@@ -2,6 +2,9 @@ import grails.util.Environment
 import org.macsuite.financial.Role
 import org.macsuite.financial.User
 import org.macsuite.financial.UserRole
+import org.macsuite.financial.banking.Account
+import org.macsuite.financial.banking.AccountType
+import org.macsuite.financial.banking.ImportFormat
 import org.macsuite.financial.category.MainCategory
 import org.macsuite.financial.category.Category
 
@@ -29,6 +32,7 @@ class BootStrap {
     def createDevData(){
         createRoles()
         createMainCategory()
+        createBanking()
     }
 
     def createRoles(){
@@ -94,5 +98,15 @@ class BootStrap {
         mainCategory = new MainCategory(name: 'Untracked').save(failOnError: true)
         category = new Category(mainCategory:mainCategory, name:'Untracked Expense',cash: true,type: 'E').save(failOnError: true)
         category = new Category(mainCategory:mainCategory, name:'Untracked income',cash: true,type: 'I').save(failOnError: true)
+    }
+
+    def createBanking(){
+        ImportFormat bank = new ImportFormat(name:'USAA',dateColumn:1,descriptionColumn:2,amountColumn:3)
+        bank.save(flush: true)
+        AccountType accountType=new AccountType(type: 'Bank',resourceType:'cash').save(failOnError: true)
+        new Account(title: 'Spending', balance: new BigDecimal('50.00'),accountType:accountType,bank:bank).save(failOnError: true)
+        new Account(title: 'Deposit', balance: new BigDecimal('1000.00'),accountType:accountType,bank:bank).save(failOnError: true)
+//        accountType=new AccountType(type:'IRA',resourceType: 'investment').save(failOnError: true)
+//        new Account(title: 'Kic IRA', balance: new BigDecimal('4500.00'),accountType:accountType,bank:bank).save(failOnError: true)
     }
 }

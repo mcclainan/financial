@@ -1,7 +1,7 @@
 package org.macsuite.financial.banking
 
-class Bank {
-    String name
+class ImportFormat {
+    String  name
     Integer dateColumn
     Integer descriptionColumn
     Integer amountColumn
@@ -23,5 +23,9 @@ class Bank {
         active blank:true
         hasMultipleAmountColumns blank:true
         hasHeading blank:true
+    }
+
+    String toString(){
+        name
     }
 }

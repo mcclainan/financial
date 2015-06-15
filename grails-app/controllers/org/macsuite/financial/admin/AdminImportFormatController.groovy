@@ -1,21 +1,22 @@
 package org.macsuite.financial.admin
 
-import org.macsuite.financial.banking.AccountType
-import org.macsuite.financial.command.AccountTypeCommand
+import grails.plugin.springsecurity.annotation.Secured
+import org.macsuite.financial.banking.ImportFormat
+import org.macsuite.financial.command.BankCommand
 
-class AdminAccountTypeController {
-
+@Secured(['ROLE_ADMIN'])
+class AdminImportFormatController {
     def index() {
         params.max=10
-        [bankList:AccountType.list(params),bankCount:AccountType.count()]
+        [bankList:ImportFormat.list(params),bankCount:ImportFormat.count()]
     }
 
     def show(){
-        AccountType bank = AccountType.get(params.id)
+        ImportFormat bank = ImportFormat.get(params.id)
         if(!bank){
             flash.notif = [
                     status:'danger',
-                    contnent:flash.message = message(code: 'error.not.found', args:['Account Type',params.id])
+                    contnent:flash.message = message(code: 'error.not.found', args:['Main Category',params.id])
             ]
             redirect(action: "index")
             return
@@ -24,23 +25,23 @@ class AdminAccountTypeController {
         [bankInstance:bank]
     }
 
-    def save(AccountTypeCommand command){
+    def save(BankCommand command){
         if(command.hasErrors()){
             params.max=10
-            render view: 'index', model: [command:command,bankList:AccountType.list(params),bankCount:AccountType.count()]
+            render view: 'index', model: [command:command,bankList:ImportFormat.list(params),bankCount:ImportFormat.count()]
             return
         }
-        AccountType bank = command.bind(new AccountType())
+        ImportFormat bank = command.bind(new ImportFormat())
         bank.save(failOnError: true)
         flash.notif = [
                 status: 'success',
-                content: message(code:'myDefault.create.message', args: ['Account Type'])
+                content: message(code:'myDefault.create.message', args: ['Main Category'])
         ]
         redirect action: 'show', id: bank.id
     }
 
     def edit(){
-        AccountType bank = AccountType.get(params.id)
+        ImportFormat bank = ImportFormat.get(params.id)
         if(!bank){
             redirect(action: 'show', id:params.id.toLong())
             return
@@ -48,18 +49,18 @@ class AdminAccountTypeController {
         [command:bank]
     }
 
-    def update(AccountTypeCommand command){
+    def update(BankCommand command){
         if(command.hasErrors()){
             render(view: 'edit',model:[command:command])
             return
         }
-        AccountType bank = command.bind(AccountType.get(command.id))
+        ImportFormat bank = command.bind(ImportFormat.get(command.id))
         bank.save(flush: true)
         redirect(action: 'show', id: bank.id)
     }
 
     def delete(){
-        AccountType bank = AccountType.get(params.id)
+        ImportFormat bank = ImportFormat.get(params.id)
         if(!bank){
             redirect(action: 'show', id:params.id.toLong())
             return

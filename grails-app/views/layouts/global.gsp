@@ -391,8 +391,11 @@
                     </a>
                     <ul class="sub">
                         <li><g:link class="" uri="/admin">Admin Home</g:link></li>
+                        <li><g:link class="" controller="adminMainCategory">Main Category Home</g:link></li>
                         <li><g:link class="" controller="adminCategory">Category Home</g:link></li>
-
+                        <li><g:link class="" controller="adminImportFormat">Bank Home</g:link></li>
+                        <li><g:link class="" controller="adminAccount">Account Home</g:link></li>
+                        <li><g:link class="" controller="adminAccountType">Account Type Home</g:link></li>
                     </ul>
                 </li>
 

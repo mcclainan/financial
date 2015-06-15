@@ -43,13 +43,12 @@
                         <div class="row-fluid">
                             <p>
                                 <span><strong><g:message code="mainCategory.description.label"/></strong></span>:<br/>
-                                <g:textArea name="description"  value="${mainCategoryInstance.description}" rows="4" cols="40"/>
+                                <g:textArea name="description"  value="${mainCategoryInstance.description}" rows="4" cols="40" disabled="disabled"/>
 
                             </p>
                         </div>
                         <div class="col-lg-offset-2 col-lg-10">
-                            <g:link action="edit" class="btn btn-primary btn-lg">Edit</g:link>
-                            <g:link action="show" class="btn btn-danger btn-lg">Delete</g:link>
+                            <g:link action="edit" class="btn btn-primary btn-lg" id="${mainCategoryInstance.id}">Edit</g:link>
                         </div>
                     </div>
                 </section>

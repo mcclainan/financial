@@ -67,7 +67,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="4">
+                                                    <td colspan="6">
                                                         <div class="text-center">
                                                             <ul class="pagination pagination-lg">
                                                                 <g:paginate total="${categoryCount}" prev="${raw("<")}" next="${raw(">")}" maxsteps="5"/>
