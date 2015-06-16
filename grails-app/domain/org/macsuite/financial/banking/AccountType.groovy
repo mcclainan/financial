@@ -8,4 +8,7 @@ class AccountType {
     static constraints = {
         resourceType blank: false, inList: ['cash','credit','benefits','investment','other']
     }
+    public String toString(){
+        type
+    }
 }

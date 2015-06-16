@@ -1,72 +1,89 @@
 package org.macsuite.financial.admin
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.macsuite.financial.banking.Account
 import org.macsuite.financial.banking.ImportFormat
-import org.macsuite.financial.command.BankCommand
+import org.macsuite.financial.command.AccountCommand
+import org.macsuite.financial.command.ImportFormatCommand
 
 @Secured(['ROLE_ADMIN'])
 class AdminImportFormatController {
     def index() {
         params.max=10
-        [bankList:ImportFormat.list(params),bankCount:ImportFormat.count()]
+        [importFormatList:ImportFormat.list(params),importFormatCount:ImportFormat.count()]
     }
 
     def show(){
-        ImportFormat bank = ImportFormat.get(params.id)
-        if(!bank){
+        ImportFormat importFormat = ImportFormat.get(params.id)
+        if(!importFormat){
             flash.notif = [
                     status:'danger',
-                    contnent:flash.message = message(code: 'error.not.found', args:['Main Category',params.id])
+                    contnent:message(code: 'error.not.found', args:['Import Format',params.id])
             ]
             redirect(action: "index")
             return
         }
 
-        [bankInstance:bank]
+        [importFormatInstance:importFormat]
     }
 
-    def save(BankCommand command){
+    def save(ImportFormatCommand command){
         if(command.hasErrors()){
             params.max=10
-            render view: 'index', model: [command:command,bankList:ImportFormat.list(params),bankCount:ImportFormat.count()]
+            render view: 'index', model: [command:command,importFormatList:ImportFormat.list(params),importFormatCount:ImportFormat.count()]
             return
         }
-        ImportFormat bank = command.bind(new ImportFormat())
-        bank.save(failOnError: true)
+        ImportFormat importFormat = command.bind(new ImportFormat())
+        importFormat.save(failOnError: true)
         flash.notif = [
                 status: 'success',
-                content: message(code:'myDefault.create.message', args: ['Main Category'])
+                content: message(code:'myDefault.create.message', args: ['Import Format'])
         ]
-        redirect action: 'show', id: bank.id
+        redirect action: 'show', id: importFormat.id
     }
 
     def edit(){
-        ImportFormat bank = ImportFormat.get(params.id)
-        if(!bank){
+        ImportFormat importFormat = ImportFormat.get(params.id)
+        if(!importFormat){
             redirect(action: 'show', id:params.id.toLong())
             return
         }
-        [command:bank]
+        [command:importFormat]
     }
 
-    def update(BankCommand command){
+    def update(ImportFormatCommand command){
         if(command.hasErrors()){
             render(view: 'edit',model:[command:command])
             return
         }
-        ImportFormat bank = command.bind(ImportFormat.get(command.id))
-        bank.save(flush: true)
-        redirect(action: 'show', id: bank.id)
+        ImportFormat importFormat = command.bind(ImportFormat.get(command.id))
+        importFormat.save(flush: true)
+        redirect(action: 'show', id: importFormat.id)
     }
 
     def delete(){
-        ImportFormat bank = ImportFormat.get(params.id)
-        if(!bank){
+        ImportFormat importFormat = ImportFormat.get(params.id)
+        if(!importFormat){
             redirect(action: 'show', id:params.id.toLong())
             return
         }
-        bank.active = false
-        bank.save()
+        importFormat.active = false
+        importFormat.save()
 
+    }
+
+    def saveAccount(AccountCommand command){
+        if(command.hasErrors()){
+            params.max=10
+            render view: 'show', model: [command:command,importFormatInstance:command.importFormat]
+            return
+        }
+        Account account = command.bind(new Account())
+        account.save(failOnError: true)
+        flash.notif = [
+                status: 'success',
+                content: message(code:'myDefault.create.message', args: ['Account'])
+        ]
+        redirect action: 'show', id: command.importFormat.id
     }
 }

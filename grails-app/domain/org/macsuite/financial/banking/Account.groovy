@@ -10,17 +10,18 @@ class Account {
     Boolean liquid = true
     Boolean active = true
 
-    static belongsTo = [type:AccountType]
+    static belongsTo = [importFormat:ImportFormat,type:AccountType]
 
-    static hasOne = [bank:ImportFormat,accountingBaseItem:AccountingBaseItem]
+    static hasOne = [accountingBaseItem:AccountingBaseItem]
 
     static hasMany = [transactions:Transaction, bankRecords:BankRecord]
 
     static constraints = {
         title blank: false
-        balance blank:false
+        balance nullable: true
         liquid nullable: false
         active nullable: false
+        accountingBaseItem nullable: true
     }
 
     BigDecimal getBalance(){

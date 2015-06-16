@@ -1,7 +1,9 @@
 package org.macsuite.financial.admin
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.macsuite.financial.category.Category
 import org.macsuite.financial.category.MainCategory
+import org.macsuite.financial.command.CategoryCommand
 import org.macsuite.financial.command.MainCategoryCommand
 import sun.applet.Main
 
@@ -70,5 +72,19 @@ class AdminMainCategoryController {
         mainCategory.active = false
         mainCategory.save()
 
+    }
+
+    def saveCategory(CategoryCommand command){
+        if(command.hasErrors()){
+            render view: 'show', model: [command:command,mainCategoryInstance:command.mainCategory]
+            return
+        }
+        Category category = command.bind(new Category())
+        category.save(failOnError: true)
+        flash.notif = [
+                status: 'success',
+                content: message(code:'myDefault.create.message', args: ['Category'])
+        ]
+        redirect action: 'show', id: category.mainCategory.id
     }
 }
