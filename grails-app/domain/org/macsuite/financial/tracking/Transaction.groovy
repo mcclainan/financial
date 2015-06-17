@@ -16,26 +16,21 @@ class Transaction {
     String     description
     BigDecimal amount
     Boolean    autoDisplay = true
-    User       user
-    Long       userId
 
     static transients = ['user']
 
     static belongsTo = [category:Category,account:Account]
 
-    static hasOne = [budgetItem:BudgetItem,plannedTransaction:PlannedTransaction, comboGroup:TransactionComboGroup, bankRecord:BankRecord]
+    static hasOne = [comboGroup:TransactionComboGroup, bankRecord:BankRecord]
 
     static constraints = {
         date        blank:false
         dateCreated blank:true,nullable: true
         lastUpdated blank:true,nullable: true
         location    blank:false
-        description blank:true
+        description nullable: true, blank:true
         amount blank:false
         autoDisplay nullable: true
-        userId nullable: true
-        budgetItem nullable: true
-        plannedTransaction nullable: true
         comboGroup nullable: true
         bankRecord nullable: true
     }
@@ -50,5 +45,35 @@ class Transaction {
             user = User.get(userId)
         }
         return user
+    }
+
+    static mapping = {
+        sort date: 'desc'
+    }
+    static namedQueries = {
+        singleTransactions{
+            isNull('comboGroup')
+        }
+        singleTransactionsWithCashBack{
+            comboGroup{
+                eq('type','cashBack')
+            }
+        }
+        comboTransactions{
+            comboGroup{
+                eq('type','combo')
+            }
+        }
+        accountTransfers{
+            comboGroup{
+                eq('type','transfer')
+            }
+        }
+        paychecks{
+            comboGroup{
+                eq('type','paycheck')
+            }
+        }
+
     }
 }

@@ -7,7 +7,7 @@ import org.macsuite.financial.banking.AccountType
 import org.macsuite.financial.banking.ImportFormat
 import org.macsuite.financial.category.MainCategory
 import org.macsuite.financial.category.Category
-
+import org.macsuite.financial.tracking.Transaction
 
 
 class BootStrap {
@@ -21,6 +21,7 @@ class BootStrap {
                 createDevData()
                 break
             case Environment.TEST:
+                createDevData()
                 break
             case Environment.PRODUCTION:
                 createAdmin()
@@ -33,6 +34,7 @@ class BootStrap {
         createRoles()
         createMainCategory()
         createBanking()
+        createTransactions()
     }
 
     def createRoles(){
@@ -88,8 +90,8 @@ class BootStrap {
         new Category(mainCategory:mainCategory, name:'Hulu',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Lynda',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Job').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Tony',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Kia',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Nic Pay',cash: true,type: 'I').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Business Income',cash: true,type: 'I').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Investment').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'401K',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Miscellaneous').save(failOnError: true)
@@ -108,5 +110,24 @@ class BootStrap {
         new Account(title: 'Deposit', balance: new BigDecimal('1000.00'),type:type,importFormat:importFormat).save(failOnError: true)
 //        type=new AccountType(type:'IRA',resourceType: 'investment').save(failOnError: true)
 //        new Account(title: 'Kic IRA', balance: new BigDecimal('4500.00'),type:type,importFormat:importFormat).save(failOnError: true)
+    }
+
+    def createTransactions(){
+        def account = Account.findByTitle('Spending')
+        def category = Category.findByName('Groceries')
+
+        new Transaction(category:category ,
+                account: account,
+                location: 'Walmart',
+                date: new Date(),
+                amount: new BigDecimal('20')).save(flush: true,failOnError: true)
+
+        category = Category.findByName('Business Income')
+
+        new Transaction(category:category ,
+                account: account,
+                location: 'Client',
+                date: new Date(),
+                amount: new BigDecimal('20')).save(flush: true,failOnError: true)
     }
 }

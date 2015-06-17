@@ -13,7 +13,7 @@ class BudgetItem {
 
     static belongsTo = [category:Category]
 
-    static hasMany = [plannedTransactions:PlannedTransaction, transactions:Transaction]
+    static hasMany = [plannedTransactions:PlannedTransaction]
 
     static constraints = {
         year blank:false

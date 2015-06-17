@@ -10,7 +10,6 @@ class PlannedTransaction {
 
     static belongsTo = [budgetItem:BudgetItem,category:Category]
 
-    static hasMany = [transactions:Transaction]
 
     static constraints = {
         date blank:false
