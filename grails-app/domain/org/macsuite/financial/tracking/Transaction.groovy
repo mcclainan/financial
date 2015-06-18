@@ -63,6 +63,8 @@ class Transaction {
             comboGroup{
                 eq('type','combo')
             }
+            order('date','desc')
+            order('comboGroup')
         }
         accountTransfers{
             comboGroup{

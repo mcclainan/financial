@@ -8,6 +8,7 @@ import org.macsuite.financial.banking.ImportFormat
 import org.macsuite.financial.category.MainCategory
 import org.macsuite.financial.category.Category
 import org.macsuite.financial.tracking.Transaction
+import org.macsuite.financial.tracking.TransactionComboGroup
 
 
 class BootStrap {
@@ -55,8 +56,8 @@ class BootStrap {
         new Category(mainCategory:mainCategory, name:'Fast Food',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Dinning Out',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Clothing').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'New',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Used',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'New Clothing',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Used Clothing',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Housing').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Rent',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Power',cash: true,type: 'E').save(failOnError: true)
@@ -113,6 +114,8 @@ class BootStrap {
     }
 
     def createTransactions(){
+
+        //Singles
         def account = Account.findByTitle('Spending')
         def category = Category.findByName('Groceries')
 
@@ -184,5 +187,45 @@ class BootStrap {
                 location: 'Paycheck',
                 date: new Date()-14,
                 amount: new BigDecimal('1000')).save(flush: true,failOnError: true)
+
+        //Combos
+        account = Account.findByTitle('Spending')
+        Date comboDate = new Date()-15
+        TransactionComboGroup group = new TransactionComboGroup(type:'combo',date: comboDate).save(flush: true)
+        new Transaction(category:Category.findByName('Groceries') ,
+                account: account,
+                location: 'Walmart',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('20')).save(flush: true,failOnError: true)
+
+        new Transaction(category:Category.findByName('New Clothing') ,
+                account: account,
+                location: 'Walmart',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('60')).save(flush: true,failOnError: true)
+
+        comboDate = new Date()-6
+        group = new TransactionComboGroup(type:'combo',date: comboDate).save(flush: true,failOnError: true)
+        new Transaction(category:Category.findByName('Groceries') ,
+                account: account,
+                location: 'Walmart',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('82.00')).save(flush: true,failOnError: true)
+
+        new Transaction(category:Category.findByName('Gas') ,
+                account: account,
+                location: 'Walmart',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('36.21')).save(flush: true,failOnError: true)
+        new Transaction(category:Category.findByName('Books') ,
+                account: account,
+                location: 'Walmart',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('14.99')).save(flush: true,failOnError: true)
     }
 }

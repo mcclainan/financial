@@ -12,6 +12,7 @@ class UrlMappings {
 
         // default admin page
         '/admin'(controller: 'adminHome')
+        '/transaction'(controller: 'transactionHome')
         '/basic_table'(view: 'basic_table')
         '/indexExample'(view: 'indexExample')
         '/blank'(view: 'blank')
@@ -33,10 +34,17 @@ class UrlMappings {
             "/admin/${uriName}/$action?/$id?"(controller: c.logicalPropertyName)
         }
 
+        // Populate the transaction controllers
+        Holders.grailsApplication.controllerClasses.findAll{ c -> c.logicalPropertyName.startsWith('transaction') }.each { c ->
+            String uriName = StringUtils.uncapitalize(c.logicalPropertyName.toString().replaceFirst('^transaction', ''))
+            "/transaction/${uriName}/$action?/$id?"(controller: c.logicalPropertyName)
+        }
+
         "/$controller/$action?/$id?" {
             constraints {
                 controller(validator: {
                     ! it.startsWith('admin')
+                    ! it.startsWith('transaction')
                 });
             }
         }

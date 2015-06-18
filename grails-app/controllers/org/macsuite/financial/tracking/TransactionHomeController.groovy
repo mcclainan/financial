@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class TransactionHomeController {
 
     def index() {
-        [singleList:Transaction.singleTransactions.list(max:5)]
+        [singleList:Transaction.singleTransactions.list(max:5),
+        comboList:Transaction.comboTransactions.list(max:5)]
     }
 }

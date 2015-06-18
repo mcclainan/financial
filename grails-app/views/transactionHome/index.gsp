@@ -38,6 +38,7 @@
                                 <tr>
                                     <th><g:message code="transaction.date.label"/></th>
                                     <th><g:message code="transaction.location.label"/></th>
+                                    <th><g:message code="category"/></th>
                                     <th><g:message code="transaction.amount.label"/></th>
                                     <th><g:message code="account"/></th>
                                 </tr>
@@ -47,6 +48,7 @@
                                     <tr>
                                         <td><g:formatDate date="${transaction.date}" format="MM/dd"/></td>
                                         <td>${transaction.location}</td>
+                                        <td>${transaction.account}</td>
                                         <td>${transaction.amount}</td>
                                         <td>${transaction.account}</td>
                                     </tr>
@@ -69,6 +71,39 @@
                     <div class="panel-body">
                         <div class="panel-heading">
                             <h2><g:message code="transaction.index.combo.heading"/></h2>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th><g:message code="transactionComboGroup.id.label" default="Group ID"/></th>
+                                    <th><g:message code="transaction.date.label"/></th>
+                                    <th><g:message code="transaction.location.label"/></th>
+                                    <th><g:message code="category"/></th>
+                                    <th><g:message code="transaction.amount.label"/></th>
+                                    <th><g:message code="account"/></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <g:each in="${comboList}" var="transaction">
+                                    <tr>
+                                        <td>${transaction?.comboGroup?.id}</td>
+                                        <td><g:formatDate date="${transaction.date}" format="MM/dd"/></td>
+                                        <td>${transaction.location}</td>
+                                        <td>${transaction.category}</td>
+                                        <td>${transaction.amount}</td>
+                                        <td>${transaction.account}</td>
+                                    </tr>
+                                </g:each>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="4">
+                                        <g:link controller="transactionSingle" class="btn btn-primary"><g:message code="transactionCombo.index.heading" default="Combo Transactions"/></g:link>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </section>
