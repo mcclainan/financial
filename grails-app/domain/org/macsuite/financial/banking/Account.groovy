@@ -4,7 +4,7 @@ import org.grails.datastore.gorm.query.NamedCriteriaProxy
 import org.macsuite.financial.netWorth.AccountingBaseItem
 import org.macsuite.financial.tracking.Transaction
 
-class Account {
+class Account implements Serializable{
 
     String title
     BigDecimal balance

@@ -3,7 +3,7 @@ package org.macsuite.financial.planning
 import org.macsuite.financial.category.Category
 import org.macsuite.financial.tracking.Transaction
 
-class BudgetItem {
+class BudgetItem implements Serializable{
     Integer    year
     Integer    month
     Boolean    required = false

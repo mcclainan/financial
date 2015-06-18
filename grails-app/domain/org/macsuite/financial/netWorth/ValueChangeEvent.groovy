@@ -1,6 +1,6 @@
 package org.macsuite.financial.netWorth
 
-class ValueChangeEvent {
+class ValueChangeEvent implements Serializable{
     Date date
     BigDecimal amount
     String type

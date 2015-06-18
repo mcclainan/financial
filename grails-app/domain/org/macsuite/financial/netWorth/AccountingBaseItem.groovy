@@ -3,7 +3,7 @@ package org.macsuite.financial.netWorth
 import org.macsuite.financial.banking.Account
 import org.macsuite.financial.category.Category
 
-class AccountingBaseItem {
+class AccountingBaseItem implements Serializable{
     String     name
     String     description
     String     type

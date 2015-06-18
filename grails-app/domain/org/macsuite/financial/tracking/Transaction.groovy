@@ -8,7 +8,7 @@ import org.macsuite.financial.planning.BudgetItem
 import org.macsuite.financial.planning.PlannedTransaction
 
 
-class Transaction {
+class Transaction implements Serializable{
     Date       date
     Date       dateCreated
     Date       lastUpdated

@@ -1,6 +1,6 @@
 package org.macsuite.financial.planning
 
-class BeginningResources {
+class BeginningResources implements Serializable{
     Date       beginDate
     BigDecimal cash 
     BigDecimal credit 

@@ -2,7 +2,7 @@ package org.macsuite.financial.banking
 
 import org.macsuite.financial.tracking.Transaction
 
-class BankRecord {
+class BankRecord implements Serializable{
     Date       date
     Date       dateCreated
     String     description

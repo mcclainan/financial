@@ -4,7 +4,7 @@ import org.macsuite.financial.planning.BudgetItem
 import org.macsuite.financial.planning.PlannedTransaction
 import org.macsuite.financial.tracking.Transaction
 
-class Category {
+class Category implements Serializable{
     String name
     String description
     Boolean cash

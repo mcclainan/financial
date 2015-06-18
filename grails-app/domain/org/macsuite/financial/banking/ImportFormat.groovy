@@ -1,6 +1,6 @@
 package org.macsuite.financial.banking
 
-class ImportFormat {
+class ImportFormat implements Serializable{
     String  name
     Integer dateColumn
     Integer descriptionColumn

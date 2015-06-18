@@ -1,6 +1,6 @@
 package org.macsuite.financial.banking
 
-class AccountType {
+class AccountType implements Serializable{
     String  type
     String  resourceType
     Boolean active = true

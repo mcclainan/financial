@@ -1,6 +1,6 @@
 package org.macsuite.financial.tracking
 
-class TransactionComboGroup {
+class TransactionComboGroup implements Serializable{
     String type
     String date
     static hasMany = [transactions:Transaction]

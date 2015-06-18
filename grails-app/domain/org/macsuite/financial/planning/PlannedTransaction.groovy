@@ -3,7 +3,7 @@ package org.macsuite.financial.planning
 import org.macsuite.financial.category.Category
 import org.macsuite.financial.tracking.Transaction
 
-class PlannedTransaction {
+class PlannedTransaction implements Serializable{
     Date       date
     BigDecimal amount
     Boolean    rolling = false

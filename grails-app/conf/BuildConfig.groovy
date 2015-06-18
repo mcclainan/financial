@@ -74,6 +74,7 @@ grails.project.dependency.resolution = {
         }
         compile ":twilio:0.1"
         compile ":quartz:1.0.2"
+        compile ":webflow:2.1.0"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.17"
