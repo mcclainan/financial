@@ -19,7 +19,7 @@ class AdminAccountTypeController {
         if(!accountType){
             flash.notif = [
                     status:'danger',
-                    contnent:flash.message = message(code: 'error.not.found', args:['Account Type',params.id])
+                    contnent:flash.msg = message(code: 'error.not.found', args:['Account Type',params.id])
             ]
             redirect(action: "index")
             return

@@ -18,11 +18,11 @@ class AdminMainCategoryController {
     def show(){
         MainCategory mainCategory = MainCategory.get(params.id)
         if(!mainCategory){
+            redirect(action: "index")
             flash.notif = [
                     status:'danger',
-                    contnent:flash.message = message(code: 'error.not.found', args:['Main Category',params.id])
+                    contnent:flash.msg = message(code: 'error.not.found', args:['Main Category',params.id])
             ]
-            redirect(action: "index")
             return
         }
 

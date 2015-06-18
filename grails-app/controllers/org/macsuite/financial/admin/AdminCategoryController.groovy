@@ -17,7 +17,7 @@ class AdminCategoryController {
         if(!category){
             flash.notif = [
                     status:'danger',
-                    contnent:flash.message = message(code: 'error.not.found', args:['Category',params.id])
+                    contnent:flash.msg = message(code: 'error.not.found', args:['Category',params.id])
             ]
             redirect(action: "index")
             return

@@ -15,11 +15,11 @@
         ${msg.message}
     </div>
 </g:if>
-<g:if test="${flash.message}">
-    <div class="alert alert-${flash.message.status} fade in" >
+<g:if test="${flash.msg}">
+    <div class="alert alert-${flash.msg.status} fade in" >
         <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
         </button>
-        ${flash.message.contnent}
+        ${flash.msg.contnent}
     </div>
 </g:if>
