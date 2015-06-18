@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="cemail" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
+                                    <label for="email" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
                                     <div class="col-lg-10">
                                         <input class="form-control " id="cemail" type="email" name="email" required />
                                     </div>

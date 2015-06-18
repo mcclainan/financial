@@ -84,8 +84,8 @@
                                         <g:form action="save">
                                             <g:render template="/templates/messageBlock"/>
                                             <div class="form-group">
-                                                <label for="name"><g:message code="mainCategory.name.label"/> </label>
-                                                <g:textField name="name" class="form-control" placeholder="Enter Name" value="${command?.name}"/>
+                                                <label for="name"><g:message code="mainCategory.name.label"/><span class="required">*</span> </label>
+                                                <g:textField name="name" class="form-control" placeholder="Enter Name" value="${command?.name}" required="required"/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="description"><g:message code="mainCategory.description.label"/></label>

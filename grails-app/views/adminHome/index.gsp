@@ -6,8 +6,12 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.macsuite.financial.category.MainCategory" %>
+<%@ page import="org.macsuite.financial.banking.AccountType; org.macsuite.financial.category.MainCategory" %>
 <%@ page import="org.macsuite.financial.category.Category" %>
+<%@ page import="org.macsuite.financial.banking.AccountType" %>
+<%@ page import="org.macsuite.financial.banking.Account" %>
+<%@ page import="org.macsuite.financial.banking.ImportFormat" %>
+
 <html>
 <head>
     <title><g:message code="adminHome.index.title" default="Admin Home"/></title>
@@ -29,7 +33,7 @@
         <!-- page start-->
         <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <div class="info-box green-bg">
+            <div class="info-box blue-bg">
                 <i class="fa fa-cog"></i>
                 <div class="count">${MainCategory.count()}</div>
                 <div class="title"><g:link controller="adminMainCategory"><g:message code="mainCategory"/></g:link></div>
@@ -45,19 +49,28 @@
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="info-box brown-bg">
-                    <i class="fa fa-shopping-cart"></i>
-                    <div class="count">7.538</div>
-                    <div class="title">Purchased</div>
+                    <i class="fa fa-bars"></i>
+                    <div class="count">${AccountType.count()}</div>
+                    <div class="title"><g:link controller="adminAccountType"><g:message code="accountType"/></g:link></div>
                 </div><!--/.info-box-->
             </div><!--/.col-->
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="info-box dark-bg">
-                    <i class="fa fa-thumbs-o-up"></i>
-                    <div class="count">4.362</div>
-                    <div class="title">Order</div>
+                    <i class="fa fa-code-fork"></i>
+                    <div class="count">${ImportFormat.count()}</div>
+                    <div class="title"><g:link controller="adminImportFormat"><g:message code="importFormat"/></g:link></div>
                 </div><!--/.info-box-->
             </div><!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box green-bg">
+                    <i class="fa fa-bank"></i>
+                    <div class="count">${Account.count()}</div>
+                    <div class="title"><g:link controller="adminAccount"><g:message code="account"/></g:link></div>
+                </div><!--/.info-box-->
+            </div><!--/.col-->
+
 
 
 

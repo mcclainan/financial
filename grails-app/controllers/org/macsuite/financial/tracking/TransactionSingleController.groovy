@@ -1,8 +1,10 @@
 package org.macsuite.financial.tracking
 
+import grails.plugin.springsecurity.annotation.Secured
 import org.macsuite.financial.exception.AppException
 import org.macsuite.financial.transaction.command.TransactionCommand
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class TransactionSingleController {
 
     TransactionService transactionService
@@ -20,6 +22,11 @@ class TransactionSingleController {
         }
         try{
             transactionService.save(command)
+            flash.notif = [
+                status:'success',
+                content:message(code: 'transactionSingle.save.success')
+            ]
+            redirect action: 'index'
         }catch (AppException e){
             def msg=[
                     status:'danger',
@@ -62,6 +69,11 @@ class TransactionSingleController {
         }
         try{
             transactionService.update(command)
+            flash.notif = [
+                    status:'success',
+                    content:message(code: 'transactionSingle.update.success')
+            ]
+            redirect action: 'edit', id: command.id
         }
         catch (AppException e){
             def msg=[
@@ -96,6 +108,11 @@ class TransactionSingleController {
 
         try{
             transactionService.delete(transaction)
+            flash.notif = [
+                    status:'success',
+                    content:message(code: 'transactionSingle.delete.success')
+            ]
+            redirect action: 'index'
         }
         catch (AppException e){
             def msg=[

@@ -20,7 +20,7 @@
                 <h3 class="page-header"><i class="fa fa fa-changeMe"></i><g:message code="" default="Change Me"/></h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><g:link uri="/">Home</g:link></li>
-                    <li><i class="fa fa-bars"></i>Change Me</li>
+                    <li><i class="fa fa-shopping-cart"></i><g:message code="transaction.index.heading"/></li>
                 </ol>
             </div>
         </div>
@@ -32,7 +32,35 @@
                         <div class="panel-heading">
                             <h2><g:message code="transaction.index.single.heading"/></h2>
                         </div>
-
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th><g:message code="transaction.date.label"/></th>
+                                    <th><g:message code="transaction.location.label"/></th>
+                                    <th><g:message code="transaction.amount.label"/></th>
+                                    <th><g:message code="account"/></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <g:each in="${singleList}" var="transaction">
+                                    <tr>
+                                        <td><g:formatDate date="${transaction.date}" format="MM/dd"/></td>
+                                        <td>${transaction.location}</td>
+                                        <td>${transaction.amount}</td>
+                                        <td>${transaction.account}</td>
+                                    </tr>
+                                </g:each>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <g:link controller="transactionSingle" class="btn btn-primary"><g:message code="transactionSingle.index.heading"/></g:link>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </section>
             </div>

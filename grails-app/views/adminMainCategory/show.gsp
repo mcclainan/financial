@@ -48,7 +48,8 @@
                             </p>
                         </div>
                         <div class="col-lg-offset-2 col-lg-10">
-                            <g:link action="edit" class="btn btn-primary btn-lg" id="${mainCategoryInstance.id}">Edit</g:link>
+                            <g:link action="edit" class="btn btn-default btn-lg" id="${mainCategoryInstance.id}">Edit</g:link>
+                            <g:link action="index" class="btn btn-primary btn-lg">Back</g:link>
                         </div>
                     </div>
                 </section>
@@ -93,7 +94,7 @@
                             New ${mainCategoryInstance} <g:message code="category"/>
                         </header>
                         <div class="panel-body">
-                            <g:form controller="adminCategory" action="save">
+                            <g:form action="saveCategory">
                                 <div class="form-group">
                                     <label for="name"><g:message code="category.name.label"/><span class="required">*</span></label>
                                     <g:textField name="name" class="form-control" id="name" placeholder="Enter Name" required="required" value="${command?.name}"/>
@@ -106,7 +107,7 @@
                                     <label for="name"><g:message code="category.type.label"/><span class="required">*</span></label>
                                     <g:select from="${Category.constraints.type.inList}" name="type"
                                               class="form-control" id="type" placeholder="Enter Name"
-                                              value="${command?.type}"/>
+                                              value="${command?.type}" required="required"/>
                                     <p>Type is either Income(I) or expense(E).</p>
                                 </div>
                                 <div class="col-lg-10">
@@ -132,7 +133,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-10">
-                                        <g:hiddenField name="mainCategory" value="${mainCategoryInstance}"/>
+                                        <g:hiddenField id="mainCategory"  name="mainCategory.id" value="${mainCategoryInstance.id}"/>
                                         <g:submitButton name="Save" class="btn-lg btn-primary"/>
                                     </div>
                                 </div>

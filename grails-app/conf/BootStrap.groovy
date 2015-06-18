@@ -121,13 +121,68 @@ class BootStrap {
                 location: 'Walmart',
                 date: new Date(),
                 amount: new BigDecimal('20')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Walmart',
+                date: new Date()-30,
+                amount: new BigDecimal('25.90')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Walmart',
+                date: new Date()-7,
+                amount: new BigDecimal('147.00')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Dillons',
+                date: new Date()-3,
+                amount: new BigDecimal('6.80')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Walmart',
+                date: new Date()-1,
+                amount: new BigDecimal('45.23')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Walmart',
+                date: new Date()-5,
+                amount: new BigDecimal('3.11')).save(flush: true,failOnError: true)
+
+        category = Category.findByName('Fuel')
+        new Transaction(category:category ,
+                account: account,
+                location: 'Sams',
+                date: new Date()-7,
+                amount: new BigDecimal('34.19')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Sams',
+                date: new Date()-14,
+                amount: new BigDecimal('24.61')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Sams',
+                date: new Date()-21,
+                amount: new BigDecimal('20.62')).save(flush: true,failOnError: true)
+        new Transaction(category:category ,
+                account: account,
+                location: 'Sams',
+                date: new Date()-28,
+                amount: new BigDecimal('27.65')).save(flush: true,failOnError: true)
+
 
         category = Category.findByName('Business Income')
-
         new Transaction(category:category ,
                 account: account,
                 location: 'Client',
-                date: new Date(),
+                date: new Date()-15,
                 amount: new BigDecimal('20')).save(flush: true,failOnError: true)
+
+        account = Account.findByTitle('Deposit')
+        category = Category.findByName('Nic Pay')
+        new Transaction(category:category ,
+                account: account,
+                location: 'Paycheck',
+                date: new Date()-14,
+                amount: new BigDecimal('1000')).save(flush: true,failOnError: true)
     }
 }

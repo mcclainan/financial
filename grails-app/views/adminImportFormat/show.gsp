@@ -6,10 +6,10 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.macsuite.financial.importFormating.Account" %>
+<%@ page import="org.macsuite.financial.banking.AccountType" %>
 <html>
 <head>
-    <title><g:message code="adminImportFormat.index.title" default="Admin -ImportFormat List"/></title>
+    <title><g:message code="adminImportFormat.index.title" default="Admin -Import Format List"/></title>
 </head>
 
 <body>
@@ -18,12 +18,12 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-cog"></i><g:message code="adminImportFormat.show.heading" default="Showing ImportFormat" args="[importFormatInstance]"/> </h3>
+                <h3 class="page-header"><i class="fa fa fa-code-fork"></i><g:message code="adminImportFormat.show.heading" default="Showing ImportFormat" args="[importFormatInstance]"/> </h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><g:link uri="/"><g:message code="index.title" default="Home"/></g:link></li>
                     <li><i class="fa fa-home"></i><g:link controller="adminHome"><g:message code="adminHome.index.heading"/></g:link></li>
-                    <li><i class="fa fa-cog"></i><g:link action="index"><g:message code="adminImportFormat.index.heading" default="MainCategory"/></g:link></li>
-                    <li><i class="fa fa-cog"></i><g:message code="adminImportFormat.show.subheading" default="Show"/></li>
+                    <li><i class="fa fa-code-fork"></i><g:link action="index"><g:message code="adminImportFormat.index.heading" default="MainCategory"/></g:link></li>
+                    <li><i class="fa fa-code-fork"></i><g:message code="adminImportFormat.show.subheading" default="Show"/></li>
                 </ol>
             </div>
         </div>
@@ -72,7 +72,8 @@
 
 
                         <div class="col-lg-offset-2 col-lg-10">
-                            <g:link action="edit" class="btn btn-primary btn-lg" id="${importFormatInstance.id}">Edit</g:link>
+                            <g:link action="edit" class="btn btn-default btn-lg" id="${importFormatInstance.id}">Edit</g:link>
+                            <g:link action="index" class="btn btn-primary btn-lg">Back</g:link>
                         </div>
                     </div>
                 </section>
@@ -119,16 +120,17 @@
                             New <g:message code="account"/>
                         </header>
                         <div class="panel-body">
-                            <g:form controller="adminAccount" action="save">
+                            <g:form action="saveAccount">
+                                <g:render template="/templates/messageBlock"/>
                                 <div class="form-group">
                                     <label for="title"><g:message code="account.title.label"/><span class="required">*</span></label>
-                                    <g:textField name="title" class="form-control" placeholder="Enter Name" required="required" value="${command?.title}"/>
+                                    <g:textField name="title" class="form-control" placeholder="Enter Name" value="${command?.title}" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="type"><g:message code="account.type.label"/><span class="required">*</span></label>
-                                    <g:select from="${Account.findAllByActive(true)}" name="type"
+                                    <g:select from="${AccountType.findAllByActive(true)}" name="type"
                                               class="form-control m-bot15" optionValue="type" optionKey="id"
-                                              value="${command?.type?.id}"/>
+                                              value="${command?.type?.id}" noSelection="['':'Choose']" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="balance"><g:message code="account.balance.label"/></label>
@@ -138,13 +140,13 @@
                                     <div class="checkbox">
                                         <label>
                                             <g:checkBox name="liquid" checked="${command?.liquid}"/>
-                                            This account will move cash around. Such as purchases as opposed to interest costs.
+                                            <g:message code="accountCommand.liquid.tip"/>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-10">
-                                        <g:hiddenField name="importFormat" value="${importFormatInstance}"/>
+                                        <g:hiddenField id="importFormat" name="importFormat.id" value="${importFormatInstance.id}"/>
                                         <g:submitButton name="Save" class="btn-lg btn-primary"/>
                                     </div>
                                 </div>

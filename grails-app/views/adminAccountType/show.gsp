@@ -6,10 +6,10 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.macsuite.financial.banking.Account" %>
+<%@ page import="org.macsuite.financial.banking.ImportFormat" %>
 <html>
 <head>
-    <title><g:message code="adminBank.index.title" default="Admin -Bank List"/></title>
+    <title><g:message code="adminImportFormat.index.title" default="Admin -ImportFormat List"/></title>
 </head>
 
 <body>
@@ -18,12 +18,12 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-cog"></i><g:message code="adminBank.show.heading" default="Showing Bank" args="[bankInstance]"/> </h3>
+                <h3 class="page-header"><i class="fa fa fa-bars"></i><g:message code="adminAccountType.show.heading" default="Showing ImportFormat" args="[accountTypeInstance]"/> </h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><g:link uri="/"><g:message code="index.title" default="Home"/></g:link></li>
                     <li><i class="fa fa-home"></i><g:link controller="adminHome"><g:message code="adminHome.index.heading"/></g:link></li>
-                    <li><i class="fa fa-cog"></i><g:link action="index"><g:message code="adminBank.index.heading" default="MainCategory"/></g:link></li>
-                    <li><i class="fa fa-cog"></i><g:message code="adminBank.show.subheading" default="Show"/></li>
+                    <li><i class="fa fa-bars"></i><g:link action="index"><g:message code="adminImportFormat.index.heading" default="MainCategory"/></g:link></li>
+                    <li><i class="fa fa-bars"></i><g:message code="adminImportFormat.show.subheading" default="Show"/></li>
                 </ol>
             </div>
         </div>
@@ -35,44 +35,20 @@
                 <section class="panel">
                     <div class="panel-body">
                         <div class="row-fluid">
-                            <p><span><strong>ID</strong></span>: ${bankInstance.id} </p>
+                            <p><span><strong>ID</strong></span>: ${accountTypeInstance.id} </p>
                         </div>
                         <div class="row-fluid">
-                            <p><span><strong><g:message code="bank.active.label"/></strong></span>: ${bankInstance.active?'Yes':'No'} </p>
+                            <p><span><strong><g:message code="accountType.type.label"/></strong></span>: ${accountTypeInstance.type} </p>
                         </div>
                         <div class="row-fluid">
-                            <p><span><strong><g:message code="bank.dateColumn.label"/></strong></span>: ${bankInstance.dateColumn} </p>
+                            <p><span><strong><g:message code="accountType.resourceType.label"/></strong></span>: ${accountTypeInstance.resourceType} </p>
                         </div>
                         <div class="row-fluid">
-                            <p><span><strong><g:message code="bank.descriptionColumn.label"/></strong></span>: ${bankInstance.descriptionColumn} </p>
+                            <p><span><strong><g:message code="accountType.active.label"/></strong></span>: ${accountTypeInstance.active?'Yes':'No'} </p>
                         </div>
-                        <g:if test="${bankInstance.amountColumn}">
-                            <div class="row-fluid">
-                                <p><span><strong><g:message code="bank.amountColumn.label"/></strong></span>: ${bankInstance.amountColumn} </p>
-                            </div>
-                        </g:if>
-                        <g:if test="${bankInstance.hasMultipleAmountColumns}">
-                            <div class="row-fluid">
-                                <p><span><strong><g:message code="bank.hasMultipleAmountColumns.label"/></strong></span>: ${bankInstance.hasMultipleAmountColumns} </p>
-                            </div>
-                        </g:if>
-                        <g:if test="${bankInstance.creditColumn}">
-                            <div class="row-fluid">
-                                <p><span><strong><g:message code="bank.creditColumn.label"/></strong></span>: ${bankInstance.creditColumn} </p>
-                            </div>
-                        </g:if>
-                        <g:if test="${bankInstance.debitColumn}">
-                            <div class="row-fluid">
-                                <p><span><strong><g:message code="bank.debitColumn.label"/></strong></span>: ${bankInstance.debitColumn} </p>
-                            </div>
-                        </g:if>
-                        <div class="row-fluid">
-                            <p><span><strong><g:message code="bank.hasHeading.label"/></strong></span>: ${bankInstance.hasHeading?'Yes':'No'} </p>
-                        </div>
-
-
                         <div class="col-lg-offset-2 col-lg-10">
-                            <g:link action="edit" class="btn btn-primary btn-lg" id="${bankInstance.id}">Edit</g:link>
+                            <g:link action="edit" class="btn btn-primary btn-lg" id="${accountTypeInstance.id}">Edit</g:link>
+                            <g:link action="index" class="btn btn-primary btn-lg">Back</g:link>
                         </div>
                     </div>
                 </section>
@@ -81,7 +57,7 @@
                 <section class="panel">
                     <div class="panel-body">
                         <header class="panel-heading">
-                            ${bankInstance.name} <g:message code="bank.accounts.label"/>
+                            ${accountTypeInstance.type} <g:message code="importFormat.accounts.label"/>
                         </header>
                         <table class="table table-condensed">
                             <thead>
@@ -94,7 +70,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <g:each in="${bankInstance.accounts}" var="account">
+                                <g:each in="${accountTypeInstance.accounts}" var="account">
                                     <tr>
                                         <td>${account.id}</td>
                                         <td>
@@ -119,16 +95,16 @@
                             New <g:message code="account"/>
                         </header>
                         <div class="panel-body">
-                            <g:form controller="adminAccount" action="save">
+                            <g:form action="saveAccount">
                                 <div class="form-group">
                                     <label for="title"><g:message code="account.title.label"/><span class="required">*</span></label>
                                     <g:textField name="title" class="form-control" placeholder="Enter Name" required="required" value="${command?.title}"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="type"><g:message code="account.type.label"/><span class="required">*</span></label>
-                                    <g:select from="${Account.findAllByActive(true)}" name="type"
-                                              class="form-control m-bot15" optionValue="type" optionKey="id"
-                                              value="${command?.type?.id}"/>
+                                    <label for="importFormat"><g:message code="account.importFormat.label"/><span class="required">*</span></label>
+                                    <g:select from="${ImportFormat.findAllByActive(true)}" name="importFormat"
+                                              class="form-control m-bot15" optionValue="name" optionKey="id"
+                                              value="${command?.importFormat?.id}" noSelection="['':'Choose']"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="balance"><g:message code="account.balance.label"/></label>
@@ -138,13 +114,13 @@
                                     <div class="checkbox">
                                         <label>
                                             <g:checkBox name="liquid" checked="${command?.liquid}"/>
-                                            This account will move cash around. Such as purchases as opposed to interest costs.
+                                            <g:message code="accountCommand.liquid.tip"/>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-10">
-                                        <g:hiddenField name="bank" value="${bankInstance}"/>
+                                        <g:hiddenField name="accountType" value="${accountTypeInstance}"/>
                                         <g:submitButton name="Save" class="btn-lg btn-primary"/>
                                     </div>
                                 </div>

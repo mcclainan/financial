@@ -1,4 +1,4 @@
-package org.macsuite.financial.tracking
+package org.macsuite.financial
 
 import grails.gsp.TagLib
 import groovy.transform.CompileStatic

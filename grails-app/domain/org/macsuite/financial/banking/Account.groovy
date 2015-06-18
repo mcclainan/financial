@@ -1,5 +1,6 @@
 package org.macsuite.financial.banking
 
+import org.grails.datastore.gorm.query.NamedCriteriaProxy
 import org.macsuite.financial.netWorth.AccountingBaseItem
 import org.macsuite.financial.tracking.Transaction
 
@@ -42,5 +43,47 @@ class Account {
 
     String toString(){
         title
+    }
+
+    static namedQueries = {
+        cashTotal{
+            type{
+                eq('resourceType','cash')
+            }
+            projections{
+                sum('balance')
+            }
+        }
+        cashAccounts{
+            type{
+                eq('resourceType','cash')
+            }
+        }
+        creditTotal{
+            type{
+                eq('resourceType','credit')
+            }
+            projections{
+                sum('balance')
+            }
+        }
+        creditAccounts{
+            type{
+                eq('resourceType','credit')
+            }
+        }
+        benefitsTotal{
+            type{
+                eq('resourceType','benefits')
+            }
+            projections{
+                sum('balance')
+            }
+        }
+        benefitsAccounts{
+            type{
+                eq('resourceType','benefits')
+            }
+        }
     }
 }
