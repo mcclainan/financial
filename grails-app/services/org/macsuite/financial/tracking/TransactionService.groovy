@@ -6,7 +6,7 @@ import org.macsuite.financial.category.Category
 import org.macsuite.financial.transaction.command.TransactionCommand
 
 @Transactional
-class TransactionService {
+class TransactionService implements Serializable {
 
     def save(TransactionCommand command) {
         Transaction transaction = command.bind(new Transaction())
@@ -27,7 +27,7 @@ class TransactionService {
         Transaction transaction = Transaction.get(command.id)
         Account account = transaction.account
         Category category = transaction.category
-        BigDecimal difference = command.amount.subtract(transaction.amount)
+        BigDecimal difference = command.amount.abs().subtract(transaction.amount.abs())
 
         if(category.type=='I'){
             account.balance = account.balance.add(difference).setScale(2,BigDecimal.ROUND_HALF_DOWN)

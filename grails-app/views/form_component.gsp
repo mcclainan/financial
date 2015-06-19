@@ -377,7 +377,7 @@
                                                 <div class="col-lg-offset-2 col-lg-10">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox"> Remember me
+                                                            <input type="checkbox" > Remember me
                                                         </label>
                                                     </div>
                                                 </div>
