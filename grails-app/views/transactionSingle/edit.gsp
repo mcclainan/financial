@@ -55,6 +55,7 @@
                                                 <g:message code="transactionSingle.edit.delete.confirm.message"/>
                                             </div>
                                             <div class="modal-footer">
+                                                <g:hiddenField name="comboGroup" value="${command?.comboGroup?.id}"/>
                                                 <button data-dismiss="modal" class="btn btn-default" type="button"><g:message code="default.cancel.label"/></button>
                                                 <g:link action="delete" id="${command?.id}" class="btn btn-danger"><g:message code="default.confirm.label"/></g:link>
                                             </div>

@@ -44,6 +44,16 @@ class TransactionCommand {
         comboGroup=transaction.comboGroup
     }
 
+    TransactionCommand(TransactionComboGroup comboGroup,TransactionComboCommand command){
+        date=comboGroup.date
+        location=comboGroup.location
+        description=command.description
+        amount=command.amount
+        category=command.category
+        account=comboGroup.account
+        this.comboGroup=comboGroup
+    }
+
     Transaction bind(Transaction transaction){
         transaction.date=date
         transaction.location=location

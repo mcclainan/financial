@@ -316,6 +316,8 @@
                     <ul class="sub">
                         <li><g:link class="" controller="transactionHome"><g:message code="transaction"/> Home</g:link></li>
                         <li><g:link class="" controller="transactionSingle"><g:message code="transactionSingle.index.heading"/></g:link></li>
+                        <li><g:link class="" controller="transactionCombo"><g:message code="transactionCombo.index.heading"/></g:link></li>
+
                     </ul>
                 </li>
                 <li class="sub-menu">

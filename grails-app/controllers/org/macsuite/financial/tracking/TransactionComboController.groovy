@@ -1,8 +1,12 @@
 package org.macsuite.financial.tracking
 
+import grails.plugin.springsecurity.annotation.Secured
 import org.macsuite.financial.transaction.command.TransactionComboGroupCommand
-import org.macsuite.financial.transaction.command.TransactionCommand
+import org.macsuite.financial.transaction.command.TransactionComboCommand
 
+import java.text.DecimalFormat
+
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class TransactionComboController {
 
     TransactionComboService transactionComboService
@@ -18,29 +22,31 @@ class TransactionComboController {
             render view:'index',model:[command:command,transactionList:Transaction.comboTransactions.list(params),transactionCount:Transaction.comboTransactions.count()]
             return
         }
-        session.comboGroup = command.spawn()
+        session.groupCommand = command
         session.pendingTransactions = []
+
         [total: command.total]
     }
 
-    def addTransaction(TransactionCommand command){
+    def addTransaction(TransactionComboCommand command){
         if (command.hasErrors()){
-            render view: 'create',model: [command: commmand]
+            render view: 'create',model: [command: command]
             return
         }
-        BigDecimal total = new BigDecimal('0')
+        session.pendingTransactions<<command
+
+        BigDecimal total = new BigDecimal('0').setScale(2,BigDecimal.ROUND_HALF_DOWN)
         session.pendingTransactions*.amount.each{amount->
             total = total.add(amount)
         }
-        BigDecimal difference = session.comboGoup.total.subtract(total)
-        Boolean done
-        if(difference.doubleValue() < 0.0){
-            commmand.amount = commmand.amount.add(difference)
+        BigDecimal difference = session.groupCommand.total.subtract(total)
+        Boolean done=false
+        if(difference.compareTo(new BigDecimal('0'))==(-1)){
+            command.amount = command.amount.add(difference)
             done = true
-        }else if(difference.compareTo(new BigDecimal('0'))){
+        }else if(difference.compareTo(new BigDecimal('0'))==0){
             done = true
         }
-        session.pendingTransactions<<commmand
         render view:'create', model:[done:done,total:difference]
     }
 
@@ -51,11 +57,41 @@ class TransactionComboController {
         session.pendingTransactions*.amount.each{amount->
             total = total.add(amount)
         }
-        BigDecimal difference = session.comboGoup.total.subtract(total)
+        BigDecimal difference = session.groupCommand.total.subtract(total)
         render view:'create', model:[total:difference]
     }
 
     def save(){
-        transactionComboService.saveTransactions(session.comboGoup, session.pandingTransacions)
+        List<TransactionComboCommand> pendingTransactions = session.pendingTransactions
+        TransactionComboGroupCommand command = session.groupCommand
+        println "command.total:${command.total}"
+        TransactionComboGroup comboGroup = command.spawn()
+        comboGroup.total=command.total
+        println "comboGroup.total: ${comboGroup.total}"
+        transactionComboService.saveTransactions(comboGroup,pendingTransactions)
+        flash.notif=[
+                status:'success',
+                content:message(code: 'transactionCombo.save.success', args: [pendingTransactions.size(),new DecimalFormat('$#.00').format(comboGroup.total.setScale(2,BigDecimal.ROUND_HALF_DOWN))])
+        ]
+        redirect action: 'index'
+    }
+
+    def edit(){
+        session.transactionCallback = 'transactionCombo'
+        redirect controller: 'transactionSingle', action: 'edit', id: params.id
+    }
+
+    def delete(){
+        Transaction transaction = Transaction.get(params.id)
+        TransactionComboGroup comboGroup = transaction.comboGroup
+        Integer transactionCount = comboGroup.transactions.size()
+        String account = comboGroup.account.toString()
+        BigDecimal total = comboGroup.total
+        transactionComboService.delete(transaction.comboGroup)
+        flash.notif=[
+                status:'success',
+                content:message(code: 'transactionCombo.delete.success', args: [transactionCount,new DecimalFormat('$#.00').format(total.setScale(2,BigDecimal.ROUND_HALF_DOWN).toDouble()),account])
+        ]
+        redirect action: 'index'
     }
 }

@@ -1,6 +1,7 @@
 package org.macsuite.financial.transaction.command
 
 import grails.validation.Validateable
+import org.macsuite.financial.banking.Account
 import org.macsuite.financial.tracking.TransactionComboGroup
 
 /**
@@ -9,7 +10,9 @@ import org.macsuite.financial.tracking.TransactionComboGroup
 @Validateable
 class TransactionComboGroupCommand {
     Date date
-    String type
+    String type = 'combo'
+    String location
+    Account account
     BigDecimal total
 
     static constraints = {
@@ -19,6 +22,6 @@ class TransactionComboGroupCommand {
     }
 
     TransactionComboGroup spawn(){
-        return new TransactionComboGroup(date: date, type: type, total: total)
+        return new TransactionComboGroup(date: date, type: type, total: total.setScale(2,BigDecimal.ROUND_HALF_DOWN),location: location,account: account)
     }
 }
