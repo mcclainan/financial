@@ -7,7 +7,7 @@ import org.macsuite.financial.transaction.command.TransactionCommand
 
 @Transactional
 class TransactionService implements Serializable {
-
+    TransactionComboService transactionComboService
     def save(TransactionCommand command) {
         Transaction transaction = command.bind(new Transaction())
         Account account = transaction.account

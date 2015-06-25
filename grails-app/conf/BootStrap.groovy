@@ -5,8 +5,10 @@ import org.macsuite.financial.UserRole
 import org.macsuite.financial.banking.Account
 import org.macsuite.financial.banking.AccountType
 import org.macsuite.financial.banking.ImportFormat
+import org.macsuite.financial.banking.SpecialAccountLabel
 import org.macsuite.financial.category.MainCategory
 import org.macsuite.financial.category.Category
+import org.macsuite.financial.category.SpecialCategoryLabel
 import org.macsuite.financial.tracking.Transaction
 import org.macsuite.financial.tracking.TransactionComboGroup
 
@@ -32,10 +34,20 @@ class BootStrap {
     }
 
     def createDevData(){
+        createRequiredEntries()
         createRoles()
         createMainCategory()
         createBanking()
         createTransactions()
+    }
+
+    def createRequiredEntries(){
+        MainCategory mainCategory = MainCategory.findByName('Transfers')?:new MainCategory(name:'Transfers', description: 'Transfers money from one account to another.').save(flush: true, failOnError: true)
+        Category category = Category.findByName('Transfer Out')?: new Category(mainCategory:mainCategory, name:'Transfer Out',cash: true,type: 'E').save(failOnError: true)
+        new SpecialCategoryLabel(label: 'transferOut', category:category).save(flush: true, failOnError: true)
+        category = Category.findByName('Transfer In')?: new Category(mainCategory:mainCategory, name:'Transfer In',cash: true,type: 'I').save(failOnError: true)
+        new SpecialCategoryLabel(label: 'transferIn', category:category).save(flush: true, failOnError: true)
+
     }
 
     def createRoles(){
@@ -109,6 +121,8 @@ class BootStrap {
         AccountType type=new AccountType(type: 'Bank',resourceType:'cash').save(failOnError: true)
         new Account(title: 'Spending', balance: new BigDecimal('50.00'),type:type,importFormat:importFormat).save(failOnError: true)
         new Account(title: 'Deposit', balance: new BigDecimal('1000.00'),type:type,importFormat:importFormat).save(failOnError: true)
+        def account = new Account(title: 'Cash', balance: new BigDecimal('20.00'),type:type,importFormat:importFormat).save(failOnError: true)
+        new SpecialAccountLabel(label:'cash',account:account).save(failOnError: true)
 //        type=new AccountType(type:'IRA',resourceType: 'investment').save(failOnError: true)
 //        new Account(title: 'Kic IRA', balance: new BigDecimal('4500.00'),type:type,importFormat:importFormat).save(failOnError: true)
     }
@@ -227,5 +241,43 @@ class BootStrap {
                 date: comboDate,
                 comboGroup: group,
                 amount: new BigDecimal('14.99')).save(flush: true,failOnError: true)
+
+        //Account Transfer
+        account = Account.findByTitle('Spending')
+        def account1 = Account.findByTitle('Deposit')
+        def inCategory = SpecialCategoryLabel.findByLabel("transferIn").category
+        def outCategory = SpecialCategoryLabel.findByLabel("transferOut").category
+        comboDate = new Date()-13
+        group=new TransactionComboGroup(date:comboDate,account:account1,location:"transfer",total: new BigDecimal("50.00"),type:'transfer').save(flush: true, failOnError: true)
+        new Transaction(category:inCategory,
+                account: account,
+                location: 'transfer',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('50.00')).save(flush: true,failOnError: true)
+
+        new Transaction(category:outCategory,
+                account: account1,
+                location: 'transfer',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('50')).save(flush: true,failOnError: true)
+
+        comboDate = new Date()-3
+        group=new TransactionComboGroup(date:comboDate,account:account1,location:"transfer",total: new BigDecimal("131.50"),type:'transfer').save(flush: true, failOnError: true)
+        new Transaction(category:inCategory,
+                account: account,
+                location: 'cash withdrawal',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('130.00')).save(flush: true,failOnError: true)
+
+        new Transaction(category:outCategory,
+                account: account1,
+                location: 'cash withdrawal',
+                date: comboDate,
+                comboGroup: group,
+                amount: new BigDecimal('131.50')).save(flush: true,failOnError: true)
+
     }
 }

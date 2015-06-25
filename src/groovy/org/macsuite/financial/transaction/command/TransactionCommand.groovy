@@ -16,6 +16,7 @@ class TransactionCommand {
     String     location
     String     description
     BigDecimal amount
+    BigDecimal cashBack
     Category   category
     Account    account
     TransactionComboGroup comboGroup
@@ -29,6 +30,7 @@ class TransactionCommand {
         category nullable: false
         account nullable: false
         comboGroup nullable: true
+        cashBack nullable: true
     }
 
     TransactionCommand (){}
@@ -52,6 +54,17 @@ class TransactionCommand {
         category=command.category
         account=comboGroup.account
         this.comboGroup=comboGroup
+    }
+
+    TransactionCommand(Transaction transaction,TransactionAccountTransferEditCommand transferEditCommand ){
+        id=transaction.id
+        date=transferEditCommand.date
+        location=transferEditCommand.location
+        description=transaction.description
+        amount=transferEditCommand.amount
+        category=transaction.category
+        account=transaction.account
+        comboGroup=transaction.comboGroup
     }
 
     Transaction bind(Transaction transaction){

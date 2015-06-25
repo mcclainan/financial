@@ -11,6 +11,7 @@ class   TransactionComboCommand {
     String description
     BigDecimal amount
     Category category
+    BigDecimal cashBack
 
     static constraints = {
         description nullable: true

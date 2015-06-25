@@ -70,6 +70,8 @@ class Transaction implements Serializable{
             comboGroup{
                 eq('type','transfer')
             }
+            order('date','desc')
+            order('comboGroup')
         }
         paychecks{
             comboGroup{

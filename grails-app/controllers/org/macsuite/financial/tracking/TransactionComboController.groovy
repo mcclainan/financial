@@ -1,6 +1,7 @@
 package org.macsuite.financial.tracking
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.macsuite.financial.category.SpecialCategoryLabel
 import org.macsuite.financial.transaction.command.TransactionComboGroupCommand
 import org.macsuite.financial.transaction.command.TransactionComboCommand
 
@@ -24,6 +25,7 @@ class TransactionComboController {
         }
         session.groupCommand = command
         session.pendingTransactions = []
+        session.cashBack = false
 
         [total: command.total]
     }
@@ -34,7 +36,10 @@ class TransactionComboController {
             return
         }
         session.pendingTransactions<<command
-
+        if(command.cashBack){
+            session.pendingTransactions<<new TransactionComboCommand(category: SpecialCategoryLabel.findByLabel('transferOut').category,amount: command.cashBack,description: 'cash back' )
+            session.cashBack = true
+        }
         BigDecimal total = new BigDecimal('0').setScale(2,BigDecimal.ROUND_HALF_DOWN)
         session.pendingTransactions*.amount.each{amount->
             total = total.add(amount)
@@ -46,6 +51,9 @@ class TransactionComboController {
             done = true
         }else if(difference.compareTo(new BigDecimal('0'))==0){
             done = true
+        }
+        if(difference.compareTo(new BigDecimal('0'))<0){
+            difference = new BigDecimal('0')
         }
         render view:'create', model:[done:done,total:difference]
     }

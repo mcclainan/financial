@@ -14,6 +14,7 @@ class TransactionComboGroupCommand {
     String location
     Account account
     BigDecimal total
+    Boolean cashBack = false
 
     static constraints = {
         date nullable: false

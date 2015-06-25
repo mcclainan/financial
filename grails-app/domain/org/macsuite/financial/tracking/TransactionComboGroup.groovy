@@ -11,7 +11,7 @@ class TransactionComboGroup implements Serializable{
 
     static hasMany = [transactions:Transaction]
     static constraints = {
-        type blank: false, inList: ['combo','transfer','paycheck','cashBack']
+        type blank: false, inList: ['combo','transfer','special']
     }
 
     static mapping = {

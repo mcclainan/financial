@@ -56,6 +56,12 @@
                                           optionKey="id" optionValue="name" noSelection="['':'-Choose Category-']"
                                           value="${command?.category?.id}" class="form-control"/>
                             </div>
+                            <g:if test="${!session.cashBack}">
+                                <div class="form-group ${fieldError([bean: command, field:'amount'],'has-error')}">
+                                    <label for="cashBack">Cash Back</label>
+                                    <g:field type="number" step="any" name="cashBack" class="form-control" value="${command?.cashBack}"/>
+                                </div>
+                            </g:if>
                             <g:if test="${done}">
                                 <g:actionSubmit value="Save" action="save" class="btn btn-primary"/>
                             </g:if>
@@ -108,7 +114,7 @@
                                     <td>${transaction.description}</td>
                                     <td><g:formatNumber number="${transaction.amount}" type="currency" currencyCode="USD"/></td>
                                     <td>${transaction.category}</td>
-                                    <td style="text-align: center;"><span class="lable label-danger"><g:link action="removeTransaction" class="btn btn-danger btn-sm" id="${index}">X</g:link></span></td>
+                                    <td style="text-align: center;"><span class="label-danger"><g:link action="removeTransaction" class="btn btn-danger btn-sm" id="${index}">X</g:link></span></td>
                                 </tr>
                             </g:each>
                             </tbody>

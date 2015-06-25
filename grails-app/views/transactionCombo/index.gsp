@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group ${hasErrors(bean: command, field:'account','has-error')}">
                                 <label for="account"><g:message code="account"/></label>
-                                <g:select name="account" from="${Account.findByActive(true)}"
+                                <g:select name="account" from="${Account.findAllByActive(true)}"
                                           optionKey="id" optionValue="title" noSelection="['':'-Choose Account-']"
                                           value="${command?.account?.id}" class="form-control"/>
                             </div>
