@@ -87,6 +87,17 @@
                                 </tr>
                             </g:each>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="text-center">
+                                        <ul class="pagination pagination-lg">
+                                            <g:paginate total="${transactionCount}" prev="${raw("<")}" next="${raw(">")}" maxsteps="10"/>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </section>

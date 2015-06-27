@@ -43,7 +43,9 @@
             </div>
             <div class="col-lg-6">
                 <section class="panel">
-                    <div class="panel-body">col-lg-6</div>
+                    <div class="panel-body">
+                        col-lg-6
+                    </div>
                 </section>
             </div>
         </div>
