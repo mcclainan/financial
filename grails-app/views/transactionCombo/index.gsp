@@ -79,7 +79,7 @@
                             <tbody>
                             <g:each in="${transactionList}" var="transaction">
                                 <tr>
-                                    <td>${transaction.comboGroup.id}</td>
+                                    <td>${transaction.comboGroup?.id}</td>
                                     <td><g:link action="edit" id="${transaction.id}">${transaction.category}</g:link> </td>
                                     <td><g:formatDate date="${transaction.date}" format="MM/dd"/></td>
                                     <td><g:formatNumber number="${transaction.amount}" type="currency" currencyCode="USD"/></td>

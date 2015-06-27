@@ -18,18 +18,18 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-home"></i><g:message code="transactionAccountTransfer.index.heading" default="Change Me"/></h3>
+                <h3 class="page-header"><g:message code="transactionAccountTransfer.index.heading" default="Change Me"/></h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><g:link uri="/">Home</g:link></li>
-                    <li><i class="fa fa-home"></i><g:link controller="transactionHome"><g:message code="transaction.index.heading"/></g:link></li>
-                    <li><i class="fa fa-shopping-cart"></i><g:message code="transactionAccountTransfer.index.heading"/> </li>
+                    <li><i class="fa fa-shopping-cart"></i><g:link controller="transactionHome"><g:message code="transaction.index.heading"/></g:link></li>
+                    <li><i class="fa"></i><g:message code="transactionAccountTransfer.index.heading"/> </li>
                 </ol>
             </div>
         </div>
         <!-- page start-->
         <div class="row">
             <g:render template="/templates/notificationBlock"/>
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <section class="panel">
                     <header class="panel-heading">
                         <g:message code="transactionAccountTransfer.index.form.heading" default="Create Transfer"/>
@@ -38,7 +38,7 @@
                         <g:render template="/templates/messageBlock"/>
                         <g:form class="form-horizontal" action="save">
                             <div class="form-group ${fieldError([bean: command, field:'date'],'has-error')}">
-                                <label class="col-sm-2 control-label" for="date"><g:message code="transactionAccountTransferCommand.date.label"/><span class="required">*</span> </label>
+                                <label class="col-sm-2 control-label" for="date"><g:message code="transactionAccountTransferCommand.date.label" default="Transfer Date"/><span class="required">*</span> </label>
                                 <div class="col-sm-10">
                                     <g:datePicker name="date" value="${command?.date}" class="form-control" precision="day" relativeYears="[-2..2]"/>
                                 </div>
@@ -51,19 +51,19 @@
                                 </div>
                             </div>
                             <div class="form-group ${fieldError([bean: command, field:'fromAccount'],'has-error')}">
-                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.fromAccount.label"/><span class="required">*</span> </label>
+                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.fromAccount.label" default="From Account"/><span class="required">*</span> </label>
                                 <div class="col-sm-10">
                                     <g:select name="fromAccount" class="form-control" from="${Account.findAllByActive(true)}" optionKey="id" optionValue="title" noSelection="['null':'Choose Account']" value="${command?.fromAccount?.id}"/>
                                 </div>
                             </div>
                             <div class="form-group ${fieldError([bean: command, field:'toAccount'],'has-error')}">
-                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.toAccount.label"/><span class="required">*</span> </label>
+                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.toAccount.label" default="To Account"/><span class="required">*</span> </label>
                                 <div class="col-sm-10">
                                     <g:select name="toAccount" class="form-control" from="${Account.findAllByActive(true)}" optionKey="id" optionValue="title" noSelection="['null':'Choose Account']" value="${command?.toAccount?.id}"/>
                                 </div>
                             </div>
                             <div class="form-group ${fieldError([bean: command, field:'amount'],'has-error')}">
-                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.amount.label"/><span class="required">*</span> </label>
+                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.amount.label" default="Amount To Transfer"/><span class="required">*</span> </label>
                                 <div class="col-sm-10">
                                     <g:field type="number" step="any" name="amount" class="form-control" value="${command?.amount}"/>
                                 </div>
@@ -83,7 +83,7 @@
                     </div>
                 </section>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <section class="panel">
                     <header class="panel-heading">
                         <g:message code="transactionAccountTransfer.index.table.list.heading"/>

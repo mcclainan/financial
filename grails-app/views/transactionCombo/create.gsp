@@ -21,12 +21,12 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-shopping-cart"></i><g:message code="transactionCombo.index.title" default="Change Me"/></h3>
+                <h3 class="page-header"></i><g:message code="transactionCombo.create.heading" default="Change Me"/></h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><g:link uri="/">Home</g:link></li>
                     <li><i class="fa fa-shopping-cart"></i><g:link controller="transactionHome"><g:message code="transaction.index.heading"/></g:link></li>
-                    <li><i class="fa fa-shopping-cart"></i><g:link controller="transactionCombo"><g:message code="transactionCombo.index.heading"/></g:link></li>
-                    <li><i class="fa fa-shopping-cart"></i><g:message code=""/></li>
+                    <li><g:link controller="transactionCombo"><g:message code="transactionCombo.index.heading"/></g:link></li>
+                    <li><g:message code="transactionCombo.create.heading"/></li>
                 </ol>
             </div>
         </div>

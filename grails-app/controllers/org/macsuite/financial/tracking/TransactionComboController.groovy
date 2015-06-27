@@ -15,6 +15,7 @@ class TransactionComboController {
     def index() {
         params.max
         [transactionList:Transaction.comboTransactions.list(params),transactionCount:Transaction.comboTransactions.count()]
+
     }
 
     def create(TransactionComboGroupCommand command){

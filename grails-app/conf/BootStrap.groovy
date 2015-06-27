@@ -221,7 +221,7 @@ class BootStrap {
                 amount: new BigDecimal('60')).save(flush: true,failOnError: true)
 
         comboDate = new Date()-6
-        group = new TransactionComboGroup(total:new BigDecimal("133.20") , type:'combo',date: comboDate,account: account, location: 'Walmart').save(flush: true,failOnError: true)
+        group = new TransactionComboGroup(total:new BigDecimal("111.00") , type:'combo',date: comboDate,account: account, location: 'Walmart').save(flush: true,failOnError: true)
         new Transaction(category:Category.findByName('Groceries') ,
                 account: account,
                 location: 'Walmart',

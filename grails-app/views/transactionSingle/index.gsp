@@ -19,10 +19,11 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-shopping-cart"></i><g:message code="transactionSingle.index.heading" default="Change Me"/></h3>
+                <h3 class="page-header"><g:message code="transactionSingle.index.heading" default="Change Me"/></h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><g:link uri="/">Home</g:link></li>
-                    <li><i class="fa fa-shopping-cart"></i><g:message code="transactionSingle.index.heading" default="Change Me"/></li>
+                    <li><i class="fa fa-shopping-cart"></i><g:link controller="transactionHome"><g:message code="transaction.index.heading" default="Change Me"/></g:link></li>
+                    <li><g:message code="transactionSingle.index.heading" default="Change Me"/></li>
                 </ol>
             </div>
         </div>
