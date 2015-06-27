@@ -15,7 +15,7 @@ class Category implements Serializable{
 
     static belongsTo = [mainCategory:MainCategory]
 
-    static hasMany = [transactions:Transaction, budgetItems:BudgetItem, plannedTransactions:PlannedTransaction]
+    static hasMany = [transactions:Transaction, plannedTransactions:PlannedTransaction]
 
     static constraints = {
         name blank: false, unique: ['mainCategory']

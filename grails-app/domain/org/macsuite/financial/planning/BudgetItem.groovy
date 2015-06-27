@@ -13,23 +13,10 @@ class BudgetItem implements Serializable{
 
     static belongsTo = [category:Category]
 
-    static hasMany = [plannedTransactions:PlannedTransaction]
 
     static constraints = {
         year blank:false
         month blank:false
         category unique: ['year','month']
-    }
-
-    BigDecimal getAmount(){
-        if(plannedTransactions?.size() > 0){
-            BigDecimal total = new BigDecimal('0')
-            plannedTransactions.each {pt->
-                total = total.add(pt.amount)
-            }
-            total.setScale(2,BigDecimal.ROUND_HALF_DOWN)
-            return total
-        }
-        new BigDecimal('0').setScale(2,BigDecimal.ROUND_HALF_DOWN)
     }
 }

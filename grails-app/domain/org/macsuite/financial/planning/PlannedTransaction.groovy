@@ -8,7 +8,7 @@ class PlannedTransaction implements Serializable{
     BigDecimal amount
     Boolean    rolling = false
 
-    static belongsTo = [budgetItem:BudgetItem,category:Category]
+    static belongsTo = [category:Category]
 
 
     static constraints = {

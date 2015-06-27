@@ -16,6 +16,7 @@ class Transaction implements Serializable{
     String     description
     BigDecimal amount
     Boolean    autoDisplay = true
+    Boolean    temporary = false
 
     static transients = ['user']
 
@@ -33,6 +34,7 @@ class Transaction implements Serializable{
         autoDisplay nullable: true
         comboGroup nullable: true
         bankRecord nullable: true
+        temporary nullable: false
     }
 
     public String toString(){
@@ -53,6 +55,11 @@ class Transaction implements Serializable{
     static namedQueries = {
         singleTransactions{
             isNull('comboGroup')
+            ne('temporary',true)
+        }
+        temporaryTransactions{
+            isNull('comboGroup')
+            eq('temporary',true)
         }
         singleTransactionsWithCashBack{
             comboGroup{
