@@ -32,25 +32,31 @@
                                 <tr>
                                     <td>
                                         ${bean.day}<br/>
-                                        ${bean.income}<br/>
-                                        ${bean.expense}<br/>
-                                        ${bean.remainder}<br>
+                                        <span class="calendar-income pull-right">${bean.income}</span><br/>
+                                        <span class="calendar-expense pull-right">${bean.expense}</span><br/>
+                                        <g:if test="${bean.remainder}">
+                                            <span class="calendar-total pull-right">$${bean.remainder}</span>
+                                        </g:if>
                                     </td>
                             </g:if>
                             <g:elseif test="${bean.dayOfWeek !=7}">
                                     <td>
                                         ${bean.day}<br/>
-                                        ${bean.income}<br/>
-                                        ${bean.expense}<br/>
-                                        ${bean.remainder}<br>
+                                        <span class="calendar-income pull-right">${bean.income}</span><br/>
+                                        <span class="calendar-expense pull-right">${bean.expense}</span><br/>
+                                        <g:if test="${bean.remainder}">
+                                            <span class="calendar-total pull-right">$${bean.remainder}</span>
+                                        </g:if>
                                     </td>
                             </g:elseif>
                             <g:else>
                                     <td>
                                         ${bean.day}<br/>
-                                        ${bean.income}<br/>
-                                        ${bean.expense}<br/>
-                                        ${bean.remainder}<br>
+                                        <span class="calendar-income pull-right">${bean.income}</span><br/>
+                                        <span class="calendar-expense pull-right">${bean.expense}</span><br/>
+                                        <g:if test="${bean.remainder}">
+                                            <span class="calendar-total pull-right">$${bean.remainder}</span>
+                                        </g:if>
                                     </td>
                                 <tr>
                             </g:else>

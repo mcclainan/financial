@@ -1,6 +1,6 @@
 .date-picker{
     display: inline;
-    width: 32.7%;
+    width: 32.5%;
 }
 
 .dashboard-heading{
@@ -17,12 +17,10 @@
     background-color: transparent;
 }
 
-.calendar-total-positive{
-    background-color: green;
+.calendar-total{
+    background-color: dodgerblue;
+    color: white;
 }
 
-.calendar-total-negative{
-    background-color: red;
-}
 
 
