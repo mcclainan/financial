@@ -50,7 +50,6 @@
                                                 <th><g:message code="category.type.label"/></th>
                                                 <th><g:message code="category.cash.label"/></th>
                                                 <th><g:message code="category.active.label"/></th>
-                                                <th># <g:message code="category.budgetItems.label"/></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -61,13 +60,12 @@
                                                     <td>${category.type ? 'Yes' : 'No'}</td>
                                                     <td>${category.cash ? 'Yes' : 'No'}</td>
                                                     <td>${category.active ? 'Yes' : 'No'}</td>
-                                                    <td>${category.budgetItems?.size()}</td>
                                                 </tr>
                                             </g:each>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="6">
+                                                    <td colspan="5">
                                                         <div class="text-center">
                                                             <ul class="pagination pagination-lg">
                                                                 <g:paginate total="${categoryCount}" prev="${raw("<")}" next="${raw(">")}" maxsteps="5"/>

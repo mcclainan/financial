@@ -2,7 +2,6 @@ package org.macsuite.financial.tracking
 
 import grails.plugin.springsecurity.annotation.Secured
 import org.macsuite.financial.transaction.command.TransactionAccountTransferCommand
-import org.macsuite.financial.transaction.command.TransactionAccountTransferEditCommand
 
 import java.text.DecimalFormat
 

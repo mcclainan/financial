@@ -1,3 +1,5 @@
+<%@ page import="org.macsuite.financial.planning.PlannedTransaction" %>
+<script type='text/javascript'>
 var Script = function () {
 
 
@@ -35,9 +37,9 @@ var Script = function () {
 
     $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next today',
+            left: 'prev',
             center: 'title',
-            right: ''
+            right: 'next'
         },
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -65,65 +67,34 @@ var Script = function () {
 
         },
         events: [
-            {
-                title: '$200',
-                start: new Date(y, m, 1),
-                backgroundColor: 'transparent',
-                textColor:'green'
-            },
-            {
-                title: 'Click for Google',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: 'http://google.com/'
-            },
-            {
-                title: '$200',
-                start: new Date(y, m, 1),
-                backgroundColor: 'transparent',
-                textColor:'red'
-            },
-            {
-                title: '$200',
-                start: new Date(y, m, 1),
-                backgroundColor: 'green',
-                textColor:'black'
-            },
-            {
-                title: 'Long Event',
-                start: new Date(y, m, d-5),
-                end: new Date(y, m, d-2)
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d-3, 16, 0),
-                allDay: false
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d+4, 16, 0),
-                allDay: false
-            },
-            {
-                title: 'Meeting',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false
-            },
-            {
-                title: 'Lunch',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false
-            },
-            {
-                title: 'Birthday Party',
-                start: new Date(y, m, d+1, 19, 0),
-                end: new Date(y, m, d+1, 22, 30),
-                allDay: false
-            }
+             <g:each in="${cal}" var="c">
+                <g:if test="${c.income}">
+                    {
+                        title: '${formatNumber(number: c.income, type: 'currency', currencyCode: 'USD')}',
+                        start: new Date(${c.year}, ${c.month}, ${c.day}),
+                        backgroundColor: 'transparent',
+                        textColor:'green'
+                    }
+                </g:if>
+                <g:if test="${c.expense}">
+                    {
+                        title: '${formatNumber(number: c.income, type: 'currency', currencyCode: 'USD')}',
+                        start: new Date(${c.year}, ${c.month}, ${c.day}),
+                        backgroundColor: 'transparent',
+                        textColor:'red'
+                    }
+                </g:if>
+
+                {
+                    title: '${formatNumber(number: c.remainder, type: 'currency', currencyCode: 'USD')}',
+                    start: new Date(${c.year}, ${c.month}, ${c.day}),
+                    backgroundColor: 'transparent',
+                    textColor:'${c.remainder.compareTo(new BigDecimal('0'))<0 ? 'red':'green'}'
+                }
+
+            </g:each>
         ]
     });
 
 }();
+</script>

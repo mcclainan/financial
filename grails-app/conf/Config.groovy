@@ -168,6 +168,7 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.macsuite.f
 grails.plugin.springsecurity.authority.className = 'org.macsuite.financial.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
+	'/home':                              ['permitAll'],
 	'/index':                         ['permitAll'],
 	'/basic_table':                   ['permitAll'],
 	'/indexexample':                  ['permitAll'],
@@ -181,6 +182,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/login':                         ['permitAll'],
 	'/profile':                       ['permitAll'],
 	'/widgets':                       ['permitAll'],
+	'/calendar':                      ['permitAll'],
 	'/index.gsp':                     ['permitAll'],
 	'/assets/**':                     ['permitAll'],
     '/greenmail/**':                  ['permitAll'],
@@ -188,8 +190,10 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/fonts/**':                   ['permitAll'],
-	'/**/assets/**':                   ['permitAll'],
+	'/**/assets/**':                  ['permitAll'],
 	'/**/img/**':                     ['permitAll'],
 	'/**/favicon.ico':                ['permitAll']
 ]
+
+grails.plugins.remotepagination.enableBootstrap=true
 

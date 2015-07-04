@@ -4,7 +4,7 @@ import org.macsuite.financial.planning.BudgetItem
 import org.macsuite.financial.planning.PlannedTransaction
 import org.macsuite.financial.tracking.Transaction
 
-class Category implements Serializable{
+class Category{
     String name
     String description
     Boolean cash
@@ -12,6 +12,7 @@ class Category implements Serializable{
     Boolean active = true
     Boolean displayOnMobile = true
     Boolean cumulative = false
+    Boolean required = false
 
     static belongsTo = [mainCategory:MainCategory]
 

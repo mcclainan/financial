@@ -85,6 +85,5 @@ class Transaction implements Serializable{
                 eq('type','paycheck')
             }
         }
-
     }
 }

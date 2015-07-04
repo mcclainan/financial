@@ -19,6 +19,7 @@ class TransactionCommand {
     BigDecimal cashBack
     Category   category
     Account    account
+    Boolean    temporary
     TransactionComboGroup comboGroup
 
     static constraints={
@@ -31,6 +32,7 @@ class TransactionCommand {
         account nullable: false
         comboGroup nullable: true
         cashBack nullable: true
+        temporary nullable: true
     }
 
     TransactionCommand (){}
@@ -43,6 +45,7 @@ class TransactionCommand {
         amount=transaction.amount
         category=transaction.category
         account=transaction.account
+        temporary=transaction.temporary
         comboGroup=transaction.comboGroup
     }
 
@@ -56,17 +59,6 @@ class TransactionCommand {
         this.comboGroup=comboGroup
     }
 
-    TransactionCommand(Transaction transaction,TransactionAccountTransferEditCommand transferEditCommand ){
-        id=transaction.id
-        date=transferEditCommand.date
-        location=transferEditCommand.location
-        description=transaction.description
-        amount=transferEditCommand.amount
-        category=transaction.category
-        account=transaction.account
-        comboGroup=transaction.comboGroup
-    }
-
     Transaction bind(Transaction transaction){
         transaction.date=date
         transaction.location=location
@@ -75,6 +67,7 @@ class TransactionCommand {
         transaction.category=category
         transaction.account=account
         transaction.comboGroup=comboGroup
+        transaction.temporary=temporary
         return transaction
     }
 }

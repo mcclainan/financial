@@ -9,6 +9,7 @@ import org.macsuite.financial.banking.SpecialAccountLabel
 import org.macsuite.financial.category.MainCategory
 import org.macsuite.financial.category.Category
 import org.macsuite.financial.category.SpecialCategoryLabel
+import org.macsuite.financial.planning.PlannedTransaction
 import org.macsuite.financial.tracking.Transaction
 import org.macsuite.financial.tracking.TransactionComboGroup
 
@@ -39,6 +40,7 @@ class BootStrap {
         createMainCategory()
         createBanking()
         createTransactions()
+        createPlanning()
     }
 
     def createRequiredEntries(){
@@ -71,19 +73,19 @@ class BootStrap {
         new Category(mainCategory:mainCategory, name:'New Clothing',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Used Clothing',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Housing').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Rent',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Power',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Water',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Gas',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Trash',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Rent',cash: true,type: 'E',required: true).save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Power',cash: true,type: 'E',required: true).save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Water',cash: true,type: 'E',required: true).save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Gas',cash: true,type: 'E',required: true).save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Trash',cash: true,type: 'E',required: true).save(failOnError: true)
         mainCategory = new MainCategory(name: 'Fees').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'NSF',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Transportation').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Fuel',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Maintenance',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Communications').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Cable',cash: true,type: 'E').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Phone',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Cable',cash: true,type: 'E',required: true).save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Phone',cash: true,type: 'E',required: true).save(failOnError: true)
         mainCategory = new MainCategory(name: 'Medical').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Co-pays',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Medication',cash: true,type: 'E').save(failOnError: true)
@@ -92,9 +94,9 @@ class BootStrap {
         new Category(mainCategory:mainCategory, name:'Books',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Supplies',cash: true,type: 'E').save(failOnError: true)
         mainCategory = new MainCategory(name: 'Financing').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Cars 4 U',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Cars 4 U',cash: true,type: 'E',required: true).save(failOnError: true)
         mainCategory = new MainCategory(name: 'Child Care').save(failOnError: true)
-        new Category(mainCategory:mainCategory, name:'Day Care',cash: true,type: 'E').save(failOnError: true)
+        new Category(mainCategory:mainCategory, name:'Day Care',cash: true,type: 'E',required: true).save(failOnError: true)
         mainCategory = new MainCategory(name: 'Entertainment').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Movies',cash: true,type: 'E').save(failOnError: true)
         new Category(mainCategory:mainCategory, name:'Skating',cash: true,type: 'E').save(failOnError: true)
@@ -279,5 +281,77 @@ class BootStrap {
                 comboGroup: group,
                 amount: new BigDecimal('131.50')).save(flush: true,failOnError: true)
 
+    }
+
+    def createPlanning(){
+        Category category = Category.findByName('Groceries')
+        for(int i=0;i<90;i++){
+            Date date = new Date()
+            Calendar calendar = new GregorianCalendar(date.getAt(Calendar.YEAR),date.getAt(Calendar.MONTH),1)
+            new PlannedTransaction(category:category,date: calendar.getTime()+i,amount: new BigDecimal('50')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Fuel')
+        for(int i=1;i<14;i++){
+            Date date = new Date()
+            Calendar calendar = new GregorianCalendar(date.getAt(Calendar.YEAR),date.getAt(Calendar.MONTH),1)
+            new PlannedTransaction(category:category,date: calendar.getTime()+(i*7),amount: new BigDecimal('40')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Rent')
+        for(int i=0;i<3;i++){
+            Date date = new Date()
+            Integer year = date.format('yyyy').toInteger()
+            Integer month = date.format('MM').toInteger()+i
+            Calendar calendar = new GregorianCalendar(year,month-1,1)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('850')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Power')
+        for(int i=0;i<3;i++){
+            Date date = new Date()
+            Integer year = date.format('yyyy').toInteger()
+            Integer month = date.format('MM').toInteger()+i-1
+            Calendar calendar = new GregorianCalendar(year,month,11)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('200')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Water')
+        for(int i=0;i<3;i++){
+            Date date = new Date()
+            Integer year = date.format('yyyy').toInteger()
+            Integer month = date.format('MM').toInteger()+i-1
+            Calendar calendar = new GregorianCalendar(year,month,5)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('70')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Gas')
+        for(int i=0;i<3;i++){
+            Date date = new Date()
+            Integer year = date.format('yyyy').toInteger()
+            Integer month = date.format('MM').toInteger()+i-1
+            Calendar calendar = new GregorianCalendar(year,month,11)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('80')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Trash')
+        for(int i=0;i<3;i++){
+            Date date = new Date()
+            Integer year = date.format('yyyy').toInteger()
+            Integer month = date.format('MM').toInteger()+i-1
+            Calendar calendar = new GregorianCalendar(year,month,1)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('15')).save(flush: true, failOnError: true)
+        }
+
+        category = Category.findByName('Nic Pay')
+        for(int i=0;i<3;i++){
+            Date date = new Date()
+            Integer year = date.format('yyyy').toInteger()
+            Integer month = date.format('MM').toInteger()+i-1
+            Calendar calendar = new GregorianCalendar(year,month,1)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('1500')).save(flush: true, failOnError: true)
+            calendar = new GregorianCalendar(year,month,15)
+            new PlannedTransaction(category:category,date:calendar.getTime(),amount: new BigDecimal('1500')).save(flush: true, failOnError: true)
+        }
     }
 }

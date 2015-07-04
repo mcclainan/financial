@@ -2,3 +2,27 @@
     display: inline;
     width: 32.7%;
 }
+
+.dashboard-heading{
+    font-weight: bold;
+    font-size: 2em;
+}
+.calendar-expense{
+    color: red;
+    background-color: transparent;
+}
+
+.calendar-income{
+    color: green;
+    background-color: transparent;
+}
+
+.calendar-total-positive{
+    background-color: green;
+}
+
+.calendar-total-negative{
+    background-color: red;
+}
+
+

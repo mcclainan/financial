@@ -7,7 +7,7 @@ class UrlMappings {
         def app
         def adminControllers = []
 
-        '/'(view: 'index')
+        '/'(controller: 'home')
 
 
         // default admin page
@@ -26,6 +26,7 @@ class UrlMappings {
         '/login' (view: 'login')
         '/profile'   (view: 'profile')
         '/widgets'   (view: 'widgets')
+        '/calendar'   (view: 'calendar')
 
 
         // Populate the admin controllers

@@ -1,6 +1,6 @@
 package org.macsuite.financial.category
 
-class MainCategory implements Serializable{
+class MainCategory{
     String name
     String description
     Boolean active = true
