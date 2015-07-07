@@ -7,6 +7,7 @@ class Role {
 	static mapping = {
 		cache true
 		table 'role_data'
+		datasource('auth')
 	}
 
 	static constraints = {

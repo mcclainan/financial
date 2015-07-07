@@ -42,13 +42,6 @@ class Transaction implements Serializable{
         "${amount} at ${location} on ${date.format('MM/dd/yyyy')}"
     }
 
-    User getUser(){
-        if(!user){
-            user = User.get(userId)
-        }
-        return user
-    }
-
     static mapping = {
         sort date: 'desc'
     }

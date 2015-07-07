@@ -4,7 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.macsuite.financial.exception.AppException
 import org.macsuite.financial.transaction.command.TransactionCommand
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['ROLE_FINANCIAL_USER'])
 class TransactionSingleController {
 
     TransactionService transactionService

@@ -7,7 +7,7 @@ import org.macsuite.financial.transaction.command.TransactionComboCommand
 
 import java.text.DecimalFormat
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['ROLE_FINANCIAL_USER'])
 class TransactionComboController {
 
     TransactionComboService transactionComboService

@@ -127,6 +127,12 @@ environments {
     }
     test{
         grails.logging.jul.usebridge = true
+//        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+        grails.serverBase = "http://localhost:8080"
+        grails.serverURL = "${grails.serverBase}/${appName}"
+    }
+    devel{
+        grails.logging.jul.usebridge = true
         grails.serverBase = "http://localhost:8086"
         grails.serverURL = "${grails.serverBase}/${appName}"
         quartz {
@@ -135,7 +141,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverBase = "http://52.24.30.58:8080"
+        grails.serverBase = "http://www.macsuite.org"
         grails.serverURL = "${grails.serverBase}/${appName}"
     }
 }
@@ -166,6 +172,7 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.macsuite.financial.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.macsuite.financial.UserRole'
 grails.plugin.springsecurity.authority.className = 'org.macsuite.financial.Role'
+grails.plugin.springsecurity.logout.postOnly=false
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/home':                              ['permitAll'],

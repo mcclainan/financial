@@ -150,22 +150,25 @@
             </li>
 
 
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        %{--<span class="profile-ava">--}%
-                            %{--<img alt="" src="${resource(dir: 'img', file: 'avatar1_small.png')}">--}%
-                        %{--</span>--}%
-                        <span class="username"><sec:username/></span>
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu extended logout">
-                        <div class="log-arrow-up"></div>
-                        <sec:ifLoggedIn>
-                            <li class="border-top">
-                                <g:link controller="logout"><i class="icon_key_alt"></i>Logout</g:link>
-                            </li>
-                        </sec:ifLoggedIn>
-                    </ul>
+                <li id="task_notificatoin_bar" class="dropdown">
+                    <sec:ifLoggedIn>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            %{--<span class="profile-ava">--}%
+                                %{--<img alt="" src="${resource(dir: 'img', file: 'avatar1_small.png')}">--}%
+                            %{--</span>--}%
+                            <span class="username"><sec:username/></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                                <li class="border-top">
+                                    <g:link controller="logout"><i class="icon_key_alt"></i>Logout</g:link>
+                                </li>
+                        </ul>
+                    </sec:ifLoggedIn>
+                    <sec:ifNotLoggedIn>
+                        <g:link controller="login">Login</g:link>
+                    </sec:ifNotLoggedIn>
                 </li>
                 <!-- user login dropdown end -->
             </ul>

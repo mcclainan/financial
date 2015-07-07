@@ -8,7 +8,7 @@ class AccountingBaseItem implements Serializable{
     String     description
     String     type
     BigDecimal balance
-    Integer useBehavior
+    Integer    useBehavior
     Account    account
     Category   purchase
     Category   sale

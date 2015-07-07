@@ -5,7 +5,7 @@ import org.macsuite.financial.MacDateService
 import org.macsuite.financial.beans.StartAndEndDate
 import org.macsuite.financial.category.Category
 
-@Secured('IS_AUTHENTICATED_FULLY')
+@Secured('ROLE_FINANCIAL_PLANNER')
 class PlannedTransactionController {
     MacDateService macDateService
     CreatePlannedTransactionService createPlannedTransactionService

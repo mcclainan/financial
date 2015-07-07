@@ -5,7 +5,7 @@ import org.macsuite.financial.transaction.command.TransactionAccountTransferComm
 
 import java.text.DecimalFormat
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['ROLE_FINANCIAL_USER'])
 class TransactionAccountTransferController {
 
     TransactionAccountTransferService transactionAccountTransferService

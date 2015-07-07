@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="form-group ${fieldError([bean: command, field:'fee'],'has-error')}">
-                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.fee.label" default="Transfer Fee"/><span class="required">*</span> </label>
+                                <label class="col-sm-2 control-label"><g:message code="transactionAccountTransferCommand.fee.label" default="Transfer Fee"/>
                                 <div class="col-sm-10">
                                     <g:field type="number" step="any" name="fee" class="form-control" value="${command?.fee}"/>
                                 </div>

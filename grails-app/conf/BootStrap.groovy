@@ -30,13 +30,15 @@ class BootStrap {
             case Environment.PRODUCTION:
                 createAdmin()
                 break
+            default:
+                createRequiredEntries()
         }
-        createAdmin()
     }
 
     def createDevData(){
         createRequiredEntries()
         createRoles()
+        createAdmin()
         createMainCategory()
         createBanking()
         createTransactions()
@@ -54,10 +56,20 @@ class BootStrap {
 
     def createRoles(){
         Role.findByAuthority('ROLE_ADMIN')?:new Role(authority:'ROLE_ADMIN').save(failOnError:true)
+        Role.findByAuthority('ROLE_FINANCIAL_USER')?:new Role(authority:'ROLE_FINANCIAL_USER').save(failOnError:true)
+        Role.findByAuthority('ROLE_FINANCIAL_PLANNER')?:new Role(authority:'ROLE_FINANCIAL_PLANNER').save(failOnError:true)
     }
     def createAdmin(){
         role = Role.findByAuthority('ROLE_ADMIN')
         user = User.findByUsername('super')?:new User(username:'super',firstName: "Admin", lastName: 'User', email: 'mcclainan@gmail.com', enabled:true,password:'password').save(failOnError:true)
+        if(!user.authorities.contains(role)){
+            UserRole.create(user,role,true)
+        }
+        role = Role.findByAuthority('ROLE_FINANCIAL_USER')
+        if(!user.authorities.contains(role)){
+            UserRole.create(user,role,true)
+        }
+        role = Role.findByAuthority('ROLE_FINANCIAL_PLANNER')
         if(!user.authorities.contains(role)){
             UserRole.create(user,role,true)
         }

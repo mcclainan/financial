@@ -2,7 +2,7 @@ package org.macsuite.financial.tracking
 
 import grails.plugin.springsecurity.annotation.Secured
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['ROLE_FINANCIAL_USER'])
 class TransactionHomeController {
 
     def index() {
